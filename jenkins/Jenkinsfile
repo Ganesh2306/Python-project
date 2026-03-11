@@ -6,8 +6,18 @@ pipeline {
 
         stage('Clone Repo') {
             steps {
-                git branch: 'main',
-                git 'https://github.com/Ganesh2306/Python-project.git'
+
+                git(
+                    branch: 'main',
+                    url: 'https://github.com/Ganesh2306/Python-project.git'
+                )
+
+            }
+        }
+
+        stage('Check Files') {
+            steps {
+                sh 'ls -la'
             }
         }
 
@@ -36,5 +46,4 @@ pipeline {
         }
 
     }
-
 }
