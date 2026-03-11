@@ -1,0 +1,39 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/Ganesh2306/Python-project.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t python-devops ./app/python-app'
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                sh 'cd terraform && terraform init'
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                sh 'cd terraform && terraform apply -auto-approve'
+            }
+        }
+
+        stage('Deploy using Ansible') {
+            steps {
+                sh 'ansible-playbook -i ansible/inventory.ini ansible/setup.yml'
+            }
+        }
+
+    }
+
+}
