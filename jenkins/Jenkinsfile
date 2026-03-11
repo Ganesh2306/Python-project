@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    
+    environment {
+        IMAGE_NAME = "ganesh2306/python-devops:latest"
+    }
     stages {
 
         stage('Clone Repo') {
@@ -19,9 +22,9 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 sh '''
-                docker tag python-devops $DOCKER_IMAGE
+                docker tag python-devops ganesh2306/python-devops:latest
                 docker login -u ganesh2306 -p YOUR_DOCKER_PASSWORD
-                docker push $DOCKER_IMAGE
+                docker push ganesh2306/python-devops:latest
                 '''
             }
         }
