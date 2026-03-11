@@ -15,7 +15,17 @@ pipeline {
                 sh 'docker build -t python-devops ./app/python-app'
             }
         }
-
+        
+        stage('Push Docker Image') {
+            steps {
+                sh '''
+                docker tag python-devops $DOCKER_IMAGE
+                docker login -u ganesh2306 -p YOUR_DOCKER_PASSWORD
+                docker push $DOCKER_IMAGE
+                '''
+            }
+        }
+   
         stage('Terraform Init') {
             steps {
                 sh 'cd terraform && terraform init'
