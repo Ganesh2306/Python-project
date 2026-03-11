@@ -35,7 +35,7 @@ pipeline {
                 sh 'cd terraform && terraform init'
             }
         }
-        
+
         stage('Update Inventory') {
             steps {
                 sh '''
@@ -54,7 +54,10 @@ pipeline {
 
         stage('Deploy using Ansible') {
             steps {
-                sh 'ansible-playbook -i ansible/inventory.ini ansible/setup.yml'
+                sh '''
+                export ANSIBLE_HOST_KEY_CHECKING=False
+                ansible-playbook -i ansible/inventory.ini ansible/setup.yml
+                '''
             }
         }
 
