@@ -23,7 +23,7 @@ pipeline {
             steps {
                 sh '''
                 docker tag python-devops ganesh2306/python-devops:latest
-                docker login -u ganesh2306 -p YOUR_DOCKER_PASSWORD
+                docker login -u ganesh2306 -p G@nesh2306
                 docker push ganesh2306/python-devops:latest
                 '''
             }
